@@ -28,6 +28,16 @@ class Book(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
 
 
+with app.app_context():
+    db.create_all()
+
+
+class RateBookForm(FlaskForm):
+    rating = StringField("Your rating out of 10")
+    review = StringField("Your Review")
+    submit = SubmitField("Done")
+
+
 @app.route("/")
 def home():
     result = db.session.execute(db.select(Book))
@@ -37,8 +47,16 @@ def home():
 
 
 @app.route("/edit", methods=["POST", "GET"])
-def edit():
-    return
+def edit_book():
+    form = RateBookForm()
+    book_id = request.args.get("id")
+    book = db.get_or_404(Book, book_id)
+    if form.validate_on_submit():
+        book.rating = float(form.rating.data())
+        book.review = form.review.data
+        db.session.commit()
+        return redirect(url_for("home"))
+    return render_template("edit.html", book=book, form=form)
 
 
 @app.route("/delete")
