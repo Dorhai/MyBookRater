@@ -52,7 +52,7 @@ def edit_book():
     book_id = request.args.get("id")
     book = db.get_or_404(Book, book_id)
     if form.validate_on_submit():
-        book.rating = float(form.rating.data())
+        book.rating = float(form.rating.data)
         book.review = form.review.data
         db.session.commit()
         return redirect(url_for("home"))
