@@ -87,11 +87,66 @@ p.overview {
     .card {
         width: calc(50% - 3rem);
     }
+
+    .button {
+        font-size: 0.9rem;
+        /* Reduce font size */
+        max-width: 100px;
+        /* Adjust max width */
+        padding: 0.4em 0.8em;
+        /* Smaller padding */
+    }
 }
 
 @media screen and (max-width: 500px) {
     .card {
         width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .button {
+        font-size: 0.8rem;
+        /* Reduce text size further */
+        max-width: 90px;
+        /* Prevent stretching */
+        padding: 0.3em 0.7em;
+        /* Adjust button height */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .button-container {
+        justify-content: center;
+    }
+
+    .button {
+        font-size: 0.8rem;
+        /* Reduce font size */
+        max-width: 80px;
+        /* Prevent buttons from becoming too large */
+        padding: 0.4em 0.6em;
+        /* Smaller padding */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        /* Space between buttons */
+    }
+
+    .button {
+        max-width: 90px;
+        /* Prevent stretching */
+        padding: 0.3em 0.7em;
+        /* Adjust button height */
     }
 }
 
@@ -177,6 +232,13 @@ p.overview {
     position: relative;
     transform-style: preserve-3d;
     transition: 300ms ease;
+    flex: 1;
+    padding: 0.5em 1em;
+    text-align: center;
+    font-size: 1rem;
+    max-width: 100px;
+    min-width: 60px;
+    white-space: nowrap;
 }
 
 .button:before {
@@ -224,27 +286,41 @@ p.overview {
     top: 12px;
 }
 
-.container.add {
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    /* Ensures buttons stay in a row */
+    gap: 8px;
+    /* Keeps spacing between buttons */
+    margin-top: 10px;
+    width: 100%;
+    /* Ensures buttons stay inside the card */
+    padding: 0 10px;
+    /* Adds padding to prevent buttons from touching the edges */
+    flex-wrap: wrap;
+    /* Ensures they don't overflow */
 
-.rating {
-    color: #E4BB23;
-}
+    .container.add {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
 
-.review {
-    font-style: italic;
-}
+    .rating {
+        color: #E4BB23;
+    }
 
-.movie_gens {
-    font-size: 11.5px;
-}
+    .review {
+        font-style: italic;
+    }
 
-.title {
-    font-weight: bold;
-}
+    .movie_gens {
+        font-size: 11.5px;
+    }
 
-.release_date {
-    font-weight: normal;
-}
+    .title {
+        font-weight: bold;
+    }
+
+    .release_date {
+        font-weight: normal;
+    }
