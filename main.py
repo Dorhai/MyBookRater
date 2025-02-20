@@ -14,7 +14,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///book.db"
 
 bootstrap = Bootstrap5(app)
 db = SQLAlchemy(app)
-print(Bootstrap5)
 
 
 class Book(db.Model):
