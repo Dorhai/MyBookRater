@@ -299,28 +299,29 @@ p.overview {
     /* Adds padding to prevent buttons from touching the edges */
     flex-wrap: wrap;
     /* Ensures they don't overflow */
+}
 
-    .container.add {
-        margin-top: 40px;
-        margin-bottom: 20px;
-    }
+.container.add {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
 
-    .rating {
-        color: #E4BB23;
-    }
+.rating {
+    color: #E4BB23;
+}
 
-    .review {
-        font-style: italic;
-    }
+.review {
+    font-style: italic;
+}
 
-    .movie_gens {
-        font-size: 11.5px;
-    }
+.movie_gens {
+    font-size: 11.5px;
+}
 
-    .title {
-        font-weight: bold;
-    }
+.title {
+    font-weight: bold;
+}
 
-    .release_date {
-        font-weight: normal;
-    }
+.release_date {
+    font-weight: normal;
+}
