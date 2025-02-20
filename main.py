@@ -60,8 +60,12 @@ def edit_book():
 
 
 @app.route("/delete")
-def delete():
-    return
+def delete_book():
+    book_id = request.args.get("id")
+    book = db.get_or_404(Book, book_id)
+    db.session.delete(book)
+    db.session.commit()
+    return redirect(url_for("home"))
 
 
 @app.route("/add", methods=["POST", "GET"])
