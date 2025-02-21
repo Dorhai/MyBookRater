@@ -44,9 +44,12 @@ class FindBookForm(FlaskForm):
 
 @app.route("/")
 def home():
-    result = db.session.execute(db.select(Book))
+    result = db.session.execute(db.select(Book).order_by(Book.rating.desc()))
+    print(result)
     all_books = result.scalars().all()
-    print(all_books)
+    for i in range(len(all_books)):
+        all_books[i].ranking = i + 1
+    db.session.commit()
     return render_template("index.html", books=all_books)
 
 
