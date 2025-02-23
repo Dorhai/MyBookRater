@@ -19,8 +19,7 @@ p.overview {
     font-size: 12px;
     height: 200px;
     width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: auto;
 }
 
 .heading {
