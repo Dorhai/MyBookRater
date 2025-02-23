@@ -7,6 +7,9 @@ from wtforms.validators import DataRequired
 import requests
 import re
 
+PLACEHOLDER_IMG = (
+    "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+)
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///book.db"
@@ -45,7 +48,6 @@ class FindBookForm(FlaskForm):
 @app.route("/")
 def home():
     result = db.session.execute(db.select(Book).order_by(Book.rating.desc()))
-    print(result)
     all_books = result.scalars().all()
     for i in range(len(all_books)):
         all_books[i].ranking = i + 1
@@ -142,7 +144,7 @@ def find_book():
         description=description,
         img_url=f"https://covers.openlibrary.org/b/id/{cover}-M.jpg"
         if cover
-        else "https://via.placeholder.com/150",
+        else PLACEHOLDER_IMG,  # add placeholder
     )
 
     db.session.add(new_book)
