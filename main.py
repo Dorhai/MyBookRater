@@ -8,17 +8,20 @@ import requests
 import re
 
 PLACEHOLDER_IMG = (
-    "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+    "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" #Image placeholder for books without covers
 )
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///book.db"
 
+# Initialize Bootstrap for styling and SQLAlchemy for database management
 bootstrap = Bootstrap5(app)
 db = SQLAlchemy(app)
 
 
 class Book(db.Model):
+    # Define database model for books
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     author = db.Column(db.String(250), nullable=False)
@@ -35,18 +38,21 @@ with app.app_context():
 
 
 class RateBookForm(FlaskForm):
+    """Form for rating and reviewing a book"""
     rating = StringField("Your rating out of 10")
     review = StringField("Your Review")
     submit = SubmitField("Done")
 
 
 class FindBookForm(FlaskForm):
+    """Form for searching for books"""
     title = StringField("Book Title", validators=[DataRequired()])
     submit = SubmitField("Add Book")
 
 
 @app.route("/")
 def home():
+    """Home route which displays all books sorted by rating"""
     result = db.session.execute(db.select(Book).order_by(Book.rating.desc()))
     all_books = result.scalars().all()
     for i in range(len(all_books)):
@@ -57,6 +63,7 @@ def home():
 
 @app.route("/edit", methods=["POST", "GET"])
 def edit_book():
+    """Edit route which allows users to update book rating and review"""
     form = RateBookForm()
     book_id = request.args.get("id")
     book = db.get_or_404(Book, book_id)
@@ -67,9 +74,9 @@ def edit_book():
         return redirect(url_for("home"))
     return render_template("edit.html", book=book, form=form)
 
-
 @app.route("/delete")
 def delete_book():
+    """Delete route which deletes a book from the database based on its id"""
     book_id = request.args.get("id")
     book = db.get_or_404(Book, book_id)
     db.session.delete(book)
@@ -79,6 +86,7 @@ def delete_book():
 
 @app.route("/add", methods=["POST", "GET"])
 def add_book():
+    """Add route which searches for books using OpenLibrary API and displays the results"""
     form = FindBookForm()
     if form.validate_on_submit():
         book_title = form.title.data
@@ -90,9 +98,9 @@ def add_book():
             return render_template("select.html", book_options=list_of_books)
     return render_template("add.html", form=form)
 
-
 @app.route("/find")
 def find_book():
+    """Find route which finds a book and adds it to the database with parameters retreived from the API"""
     title = request.args.get("title")
     author = request.args.get("author")
     year = request.args.get("year")
@@ -150,20 +158,6 @@ def find_book():
     db.session.add(new_book)
     db.session.commit()
     return redirect(url_for("rate_book", id=new_book.id))
-
-
-@app.route("/edit", methods=["GET", "POST"])
-def rate_book():
-    form = RateBookForm()
-    book_id = request.args.get("id")
-    book = db.get_or_404(Book, book_id)
-    if form.validate_on_submit():
-        book.rating = float(form.rating.data)
-        book.review = form.review.data
-        db.session()
-        return redirect(url_for("home"))
-    return render_template("edit.html", book=book, form=form)
-
 
 if __name__ == "__main__":
     """Run the Flask application"""

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+    <!-- A base template for the rest of the html pages. They inherit the basic design and bootstrap5 -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     {% block styles %}
-    <!-- Implements bootstrap5 into HTML -->
+    <!-- Implements bootstrap5 into HTML with CSS -->
     {{ bootstrap.load_css() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700" />
@@ -24,8 +25,7 @@
     {% block content %}{% endblock %}
     
     {% block scripts %}
-    <!-- ✅ Ensure Bootstrap JS is loaded properly -->
-    {{ bootstrap.load_js() }}
+    {{ bootstrap.load_js() }} <!-- Load Bootstrap JS -->
     {% endblock %}
   </body>
 </html>

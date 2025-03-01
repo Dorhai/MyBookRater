@@ -9,12 +9,14 @@
   {% for book in books %}
   <div class="flip-card mt-3 w-50 mx-auto text-center">
     <div class="flip-card-inner">
+      <!-- Front of the flip card (Book Cover and Ranking) -->
       <div class="front flip-card-front text-white">
         <img class="card-img" src="{{ book.img_url }}" alt="Card image" style="filter: brightness(50%)">
         <div class="card-img-overlay d-flex align-items-center justify-content-center">
           <p class="card-text" style="font-size:7rem">{{ book.ranking }}</p>
         </div>
       </div>
+      <!-- Back of the flip card (Book Details) -->
       <div class="card-body flip-card-back back">
         <div class="title">
           {{ book.title }} <span class="release_date">({{ book.year }})</span>
@@ -25,6 +27,7 @@
         </div>
         <p class="review">"{{ book.review }}"</p>
         <p class="overview">{{ book.description }}</p>
+        <!-- Buttons for editing and deleting -->
         <div class="button-container pb-2">
           <a href="{{ url_for('edit_book', id=book.id) }}" class="btn btn-primary">Update</a>
           <a href="{{ url_for('delete_book', id=book.id) }}" class="delete-button btn btn-danger">Delete</a>
@@ -35,6 +38,7 @@
   {% endfor %}
 </div>
 
+<!-- Add Book Button -->
 <div class="container text-center add">
   <a href="{{ url_for('add_book') }}" class="btn btn-primary my-3">Add book</a>
 </div>
