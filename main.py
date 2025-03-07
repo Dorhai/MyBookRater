@@ -83,6 +83,18 @@ def delete_book():
     db.session.commit()
     return redirect(url_for("home"))
 
+@app.route("/edit", methods=["GET", "POST"])
+def rate_book():
+    form = RateBookForm()
+    book_id = request.args.get("id")
+    book = db.get_or_404(Book, book_id)
+    if form.validate_on_submit():
+        book.rating = float(form.rating.data)
+        book.review = form.review.data
+        db.session()
+        return redirect(url_for("home"))
+    return render_template("edit.html", book=book, form=form)
+
 
 @app.route("/add", methods=["POST", "GET"])
 def add_book():
