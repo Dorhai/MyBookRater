@@ -2,10 +2,20 @@
 MyBookRater is a simple and efficient book rating application designed to help users manage and review their favorite books. It provides an intuitive interface for adding books, rating them, and keeping track of personal reviews.
 
 🚀 Features
+
+
 📚 Add books with ease
+
+
 ⭐ Rate books on a user-friendly scale
+
+
 📝 Leave personal reviews and notes
+
+
 🔍 View a list of all rated books
+
+
 📊 Simple and clean UI for better usability
 
 Ensure you have the following installed on your system:
