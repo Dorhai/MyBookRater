@@ -136,14 +136,14 @@ def find_book():
                 work_key = work_key.split("/")[-1]  # Extract only OLxxxxxW
                 print(f"📌 Extracted Work Key: {work_key}")
 
-                # ✅ Step 2: Fetch description from Work API
+                #Fetch description from Work API
                 work_url = f"https://openlibrary.org/works/{work_key}.json"
                 work_response = requests.get(work_url)
 
                 if work_response.status_code == 200:
                     work_data = work_response.json()
 
-                    # ✅ Extract description if available
+                    #Extract description if available
                     if "description" in work_data:
                         if isinstance(work_data["description"], dict):
                             description = work_data["description"].get(
@@ -152,10 +152,10 @@ def find_book():
                         else:
                             description = work_data["description"]
 
-                    # ✅ Step 3: Clean Description (Remove text after "(" or "-")
+                    #Clean Description (Remove text after "(" or "-")
                     description = re.split(r"[\(-]", description)[0].strip()
 
-    # ✅ Step 4: Add book to database with the cleaned description
+    #Add book to database with the cleaned description
     print(f"Extracted Work Key: {work_key}")
     new_book = Book(
         title=title,
@@ -164,7 +164,7 @@ def find_book():
         description=description,
         img_url=f"https://covers.openlibrary.org/b/id/{cover}-M.jpg"
         if cover
-        else PLACEHOLDER_IMG,  # add placeholder
+        else PLACEHOLDER_IMG,  #add placeholder
     )
 
     db.session.add(new_book)
@@ -172,5 +172,4 @@ def find_book():
     return redirect(url_for("rate_book", id=new_book.id))
 
 if __name__ == "__main__":
-    """Run the Flask application"""
     app.run(debug=True)
