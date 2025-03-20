@@ -10,13 +10,14 @@
     {% for book in book_options:%}
     <p>
         <div class="d-grid gap-2">
-            <button type="button" class="btn btn-light btn-outline-dark text-start w-100 w-md-auto px-3"
-                href={{ url_for('find_book', 
+            <a type="button" class="btn btn-light btn-outline-dark text-start w-100 w-md-auto px-3"
+                href="{{ url_for('find_book', 
                 title=book.title, 
                 author=book.author_name, 
                 year=book.first_publish_year, 
-                cover=book.cover_i if book.cover_i else '') }}>{{book.title}} - {{book.first_publish_year}} - {{book.author_name}}
-            </button>
+                cover=book.cover_i if book.cover_i else '') }}"> 
+                {{book.title}} - {{book.first_publish_year}} - {{book.author_name}}
+            </a>
         </div>
     </p>
     {% endfor %}
